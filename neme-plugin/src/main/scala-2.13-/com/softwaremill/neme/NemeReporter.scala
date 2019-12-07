@@ -2,8 +2,9 @@ package com.softwaremill.neme
 
 import scala.reflect.internal.util.Position
 import scala.tools.nsc.reporters.Reporter
+import scala.util.matching.Regex
 
-class NemeReporter(original: Reporter) extends Reporter {
+class NemeReporter(original: Reporter, patterns: Seq[Regex]) extends Reporter {
 
   override def reset(): Unit = {
     super.reset()
@@ -14,7 +15,7 @@ class NemeReporter(original: Reporter) extends Reporter {
     severity match {
       case INFO =>
         original.info(pos, msg, force)
-      case WARNING if msg.contains("match may not be exhaustive.") =>
+      case WARNING if patterns.exists(_.findFirstIn(msg).isDefined) =>
         original.error(pos, msg)
       case WARNING =>
         original.warning(pos, msg)
