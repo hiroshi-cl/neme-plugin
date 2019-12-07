@@ -15,8 +15,9 @@ class NemePlugin(val global: Global) extends Plugin {
   private lazy val reporter =
     new NemeReporter(global.reporter)
 
-  override def processOptions(options: List[String], error: String => Unit): Unit = {
+  override def init(options: List[String], error: String => Unit): Boolean = {
     global.reporter = reporter
+    true
   }
 
   private object component extends PluginComponent {
