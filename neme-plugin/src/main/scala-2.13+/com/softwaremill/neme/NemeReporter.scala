@@ -17,9 +17,6 @@ class NemeReporter(original: FilteringReporter) extends FilteringReporter {
       case ERROR => original.error(pos, msg)
     }
   }
-  def exec(): Unit = {
-    // do nothing
-  }
-
+ 
   override def settings: Settings = original.settings
 }

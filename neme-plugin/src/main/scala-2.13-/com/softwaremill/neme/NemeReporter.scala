@@ -5,10 +5,6 @@ import scala.tools.nsc.reporters.Reporter
 
 class NemeReporter(original: Reporter) extends Reporter {
 
-  def exec(): Unit = {
-    updateCounts()
-  }
-
   override def reset(): Unit = {
     super.reset()
     original.reset()
